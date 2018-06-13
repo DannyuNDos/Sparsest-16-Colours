@@ -15,8 +15,12 @@ Brief explanation of the algorithm:
 In the file, you have some configurable options:
 
   step: The amount of making the colours farther in 2.
+  
   maxIter: max iteration for 3.
+  
   record: the minimal distance of the previous record.
+  
   threads: # of the threads for parallel computing.
+  
 
 See https://wiki.haskell.org/Haskell_for_multicores#Further_reading_9 for enabling parallelism in Haskell.
