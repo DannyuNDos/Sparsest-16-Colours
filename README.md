@@ -3,7 +3,7 @@ Project to find the sparsest 16 Colours in CIELUV color space.
 Current version assumes sRGB.
 The project consists of `SparsestColourLUV.hs` which is the finder which is written in Haskell, and some records.
   
-You need the following packages: `fgl`, `colour`, `random`, and `parallel`.
+You need the following Haskell packages: `fgl`, `colour`, `random`, and `parallel`.
 
 Brief explanation of the algorithm:
 
