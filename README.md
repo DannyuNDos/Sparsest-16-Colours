@@ -1,8 +1,9 @@
 # Sparsest-16-Colours
 Project to find the sparsest 16 Colours in CIELUV color space.
 Current version assumes sRGB.
-The project consists of a single file: SparsestColourLUV.hs, which is written in Haskell.
-You need the following packages: fgl, colour, random, parallel.
+The project consists of `SparsestColourLUV.hs`, the finder which is written in Haskell, and some records.
+  
+You need the following packages: `fgl`, `colour`, `random`, and `parallel`.
 
 Brief explanation of the algorithm:
 
@@ -10,20 +11,22 @@ Brief explanation of the algorithm:
   2. Makes the 2 closest colours farther to each other.
   3. Repeats 2. for certain amount, or until the current record breaks.
   4. Outputs the result colours in hexadecimal form.
-  5. Outputs the minimal distance of colours **before** the last iteration of 3. (This is due to simplicity)
+  5. Outputs the minimal distance of colours **before** the last iteration of 3. (This is for simplicity of the algorithm)
 
 In the file, you have some configurable options:
 
-  step: The amount of making the colours farther in 2.
+  `step`: The amount of making the colours farther in 2.
   
-  maxIter: max iteration for 3.
+  `maxIter`: max iteration for 3.
   
-  record: the minimal distance of the previous record.
+  `record`: the minimal distance of the previous record.
   
-  threads: # of the threads for parallel computing.
+  `threads`: # of the threads for parallel computing.
   
 
 See https://wiki.haskell.org/Haskell_for_multicores#Further_reading_9 for enabling parallelism in Haskell.
+
+The records must have name in the following scheme: `Sparsest16Colours_yyyymmdd.txt`.
 
 This project was originally started for NetHack (a game). So when you find a new record and commit it here, please order the colours to vaguely fit the following order:
 
