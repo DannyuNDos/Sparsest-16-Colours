@@ -19,7 +19,7 @@ In the file, you have some configurable options:
   
   `maxIter`: max iteration for 3.
   
-  `record`: the minimal distance of the previous record. **So check the previous record and change this.**
+  `record`: the minimal distance given by the previous record. **So check the previous record and change this.**
   
   `threads`: # of the threads for parallel computing.
   
