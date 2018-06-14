@@ -9,7 +9,7 @@ Brief explanation of the algorithm:
 
   1. Starts with 8 colours on the vertex of the RGB color space and 8 other random colours.
   2. Makes the 2 closest colours farther to each other.
-  3. Repeats 2. for certain amount, or until the current record breaks.
+  3. Repeats 2. for certain amount, or until the current record is broken.
   4. Outputs the result colours in hexadecimal form.
   5. Outputs the minimal distance of colours **before** the last iteration of 3. (This is for simplicity of the algorithm)
 
