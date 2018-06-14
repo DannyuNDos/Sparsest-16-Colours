@@ -24,7 +24,7 @@ In the file, you have some configurable options:
   `threads`: # of the threads for parallel computing.
   
 
-See https://wiki.haskell.org/Haskell_for_multicores#Further_reading_9 for enabling parallelism in Haskell.
+See https://wiki.haskell.org/Haskell_for_multicores for enabling parallelism in Haskell.
 
 The records must have name in the following scheme: `Sparsest16Colours_yyyymmdd.txt`.
 
