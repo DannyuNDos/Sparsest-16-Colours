@@ -1,5 +1,5 @@
 import Control.Applicative
-import Control.Arrow ((&&&))
+import Control.Arrow
 import Data.Foldable
 import Data.IORef
 import Data.List
@@ -152,13 +152,13 @@ step :: Double
 step = 0.3
 
 maxIter :: Int
-maxIter = 50000
+maxIter = 100000
 
 record :: Double
-record = 69.44922485614161
+record = 69.49022741281019
 
 threads :: Int
-threads = 3
+threads = 7
 
 stepGraph :: ColourGraph -> (Double{-,Bool-},ColourGraph)
 stepGraph cs = let
@@ -206,13 +206,13 @@ iterGraph cs = let
 main :: IO ()
 main = do
     initialGraphs <- sequenceA (replicate threads initialGraph)
-    let colourss = parMap rpar (appEndo (stimes maxIter (Endo (
-            \x@(dist,g) -> if record < dist then x else stepGraph g
-            ))) . stepGraph) initialGraphs
-    let colourss' = filter ((record <=) . fst) colourss
+    let colourss = parMap rpar (second fst . appEndo (stimes maxIter (Endo (
+            \x@(_,(dist,g)) -> if record < dist then x else (g, stepGraph g)
+            ))) . (id &&& stepGraph)) initialGraphs
+    let colourss' = filter ((record <=) . snd) colourss
     if null colourss'
         then main
-        else for_ colourss' (\(dist,g) -> do
+        else for_ colourss' (\(g,dist) -> do
             for_ (Graph.labNodes g) (putStrLn . Colour.sRGB24show . snd)
             putStrLn $ "Minimal distance: " ++ show dist
             )
