@@ -25,7 +25,7 @@ In the file, you have some configurable options:
 
 See https://wiki.haskell.org/Haskell_for_multicores for enabling parallelism in Haskell.
 
-The records must have name in the following scheme: Sparsest16Colours_yyyymmdd.txt.
+The records must have name in the following scheme: `Sparsest16Colours_yyyymmdd.txt`.
 
 This project was originally started for NetHack (a game). So when you find a new record and commit it here, please order the colours to vaguely fit the following order:
 
