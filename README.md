@@ -21,7 +21,7 @@ In the file, you have some configurable options:
 
 `record`: the minimal distance given by the previous record. **So check the previous record and change this.**
 
-`threads`: # of the threads for parallel computing. This makes execution of the same procedure in parallel, and thus can output multiple results.
+`threads`: # of the threads for parallel computing. This makes execution of the same procedure in parallel, and will output only the best result.
 
 See https://wiki.haskell.org/Haskell_for_multicores for enabling parallelism in Haskell.
 
