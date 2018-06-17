@@ -23,6 +23,8 @@ In the file, you have some configurable options:
 
 `threads`: # of the threads for parallel computing. This makes execution of the same procedure in parallel, and will output only the best result.
 
+`outputPath`: Path for outputting the result to. This is `"./Sparsest16Colours.txt"` by default.
+
 See https://wiki.haskell.org/Haskell_for_multicores for enabling parallelism in Haskell.
 
 The records must have name in the following scheme: `Sparsest16Colours_yyyymmdd.txt`.
