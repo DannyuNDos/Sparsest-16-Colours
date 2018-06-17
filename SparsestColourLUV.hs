@@ -149,13 +149,13 @@ changeColour oldc newc cs = Graph.gmap (\(_,n,x,xs) -> (,,,) [] n
     ) cs
 
 step :: Double
-step = 0.3
+step = 0.2
 
 maxIter :: Int
-maxIter = 100000
+maxIter = 10000
 
 record :: Double
-record = 69.54848141308265
+record = 69.56501960238641
 
 threads :: Int
 threads = 7
@@ -203,6 +203,15 @@ iterGraph cs = let
     (yes,next) = stepGraph cs
     in if yes then cs else iterGraph next
 -}
+outputPath :: FilePath
+outputPath = "./Sparsest16Colours.txt"
+
+output :: String -> IO ()
+output str = do
+    appendFile outputPath str
+    appendFile outputPath "\n"
+    putStrLn str
+
 main :: IO ()
 main = do
     initialGraphs <- sequenceA (replicate threads initialGraph)
@@ -210,9 +219,10 @@ main = do
             \x@(_,(dist,g)) -> if record < dist then x else (g, stepGraph g)
             ))) . (id &&& stepGraph)) initialGraphs
     let colourss' = filter ((record <=) . snd) colourss
-    if null colourss'
-        then main
-        else for_ colourss' (\(g,dist) -> do
-            for_ (Graph.labNodes g) (putStrLn . Colour.sRGB24show . snd)
-            putStrLn $ "Minimal distance: " ++ show dist
-            )
+    case colourss' of
+        [] -> main
+        _  -> let
+            (g,dist) = maximumBy (comparing snd) colourss'
+            in do
+                for_ (Graph.labNodes g) (output . Colour.sRGB24show . snd)
+                output $ "Minimal distance: " ++ show dist
