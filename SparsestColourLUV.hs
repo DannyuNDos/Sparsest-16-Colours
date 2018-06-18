@@ -160,6 +160,9 @@ record = 69.56501960238641
 threads :: Int
 threads = 7
 
+outputPath :: FilePath
+outputPath = "./Sparsest16Colours.txt"
+
 stepGraph :: ColourGraph -> (Double{-,Bool-},ColourGraph)
 stepGraph cs = let
     (c1n,c2n,dist) = minimumBy (comparing (\(_,_,d) -> d)) $ Graph.labEdges cs
@@ -203,8 +206,6 @@ iterGraph cs = let
     (yes,next) = stepGraph cs
     in if yes then cs else iterGraph next
 -}
-outputPath :: FilePath
-outputPath = "./Sparsest16Colours.txt"
 
 output :: String -> IO ()
 output str = do
@@ -224,5 +225,6 @@ main = do
         _  -> let
             (g,dist) = maximumBy (comparing snd) colourss'
             in do
+                writeFile outputPath ""
                 for_ (Graph.labNodes g) (output . Colour.sRGB24show . snd)
                 output $ "Minimal distance: " ++ show dist
