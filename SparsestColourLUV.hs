@@ -155,7 +155,7 @@ maxIter :: Int
 maxIter = 10000
 
 record :: Double
-record = 69.56803857334242
+record = 69.5884069254636
 
 threads :: Int
 threads = 7
