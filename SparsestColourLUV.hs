@@ -1,13 +1,10 @@
 import Control.Applicative
 import Control.Arrow
 import Data.Foldable
-import Data.IORef
-import Data.List
 import Data.Maybe
-import Data.Ord
 import Data.Semigroup
 import Data.Monoid hiding (First, Last)
-import Data.Traversable
+import Data.Ord
 
 import qualified Data.Graph.Inductive.Graph as Graph
 import qualified Data.Graph.Inductive.PatriciaTree as Graph
@@ -155,10 +152,10 @@ maxIter :: Int
 maxIter = 10000
 
 record :: Double
-record = 69.62120057738768
+record = 69.64386075814124
 
 threads :: Int
-threads = 3
+threads = 7
 
 outputPath :: FilePath
 outputPath = "./Sparsest16Colours.txt"
