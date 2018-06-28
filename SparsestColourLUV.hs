@@ -146,13 +146,13 @@ changeColour oldc newc cs = Graph.gmap (\(_,n,x,xs) -> (,,,) [] n
 	) cs
 
 step :: Double
-step = 0.2
+step = 0.1
 
 maxIter :: Int
-maxIter = 10000
+maxIter = 20000
 
 record :: Double
-record = 69.92145588579768
+record = 69.96718639997472
 
 threads :: Int
 threads = 7
