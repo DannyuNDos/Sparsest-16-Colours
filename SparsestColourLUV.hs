@@ -1,5 +1,7 @@
 import Control.Applicative
 import Control.Arrow
+import Control.Concurrent
+import Control.Concurrent.MVar
 import Data.Foldable
 import Data.Maybe
 import Data.Semigroup
@@ -14,8 +16,6 @@ import Data.Colour.CIE.Illuminant (d65)
 import qualified Data.Colour.SRGB as Colour
 
 import System.Random
-
-import Control.Parallel.Strategies
 
 data Vector3 a = Vector3 a a a deriving (Eq, Ord, Show, Read)
 
@@ -152,18 +152,17 @@ maxIter :: Int
 maxIter = 10000
 
 record :: Double
-record = 70.00932613188516
+record = 70.1385958411962
 
 threads :: Int
-threads = 7
+threads = 6
 
 outputPath :: FilePath
 outputPath = "./Sparsest16Colours.txt"
 
-stepGraph :: ColourGraph -> (Double{-,Bool-},ColourGraph)
+stepGraph :: ColourGraph -> (Double, ColourGraph)
 stepGraph cs = let
 	(c1n,c2n,dist) = minimumBy (comparing (\(_,_,d) -> d)) $ Graph.labEdges cs
-	--cs' = Graph.gmap (\(_,n,x,xs) -> ([],n,x, filter ((dist + tolerance >=) . fst) xs)) cs
 	Just c1 = Graph.lab cs c1n
 	Just c2 = Graph.lab cs c2n
 	v1 = toCIE c1
@@ -174,10 +173,6 @@ stepGraph cs = let
 	c2' = clampColour (cieLUV d65 l2 a2 b2)
 	in (
 		dist,
-		{-Graph.ufold (\(_,_,x,xs) y -> y && 3 <= length xs + let
-			Colour.RGB r g b = Colour.toSRGB x
-			in length . filter (\t -> 0 == t || 1 == t) $ [r,g,b]
-		) True cs',-}
 		changeColour c2 c2' . changeColour c1 c1' $ cs
 	)
 
@@ -198,30 +193,36 @@ initialGraph = do
 	let dists = map (\((n1,c1),(n2,c2)) -> (n1,n2, normV (toCIE c1 |-| toCIE c2))) (take2 colours')
 	return $ Graph.mkGraph colours' dists
 {-
-iterGraph :: ColourGraph -> ColourGraph
+iterGraph :: ColourGraph -> (Double, ColourGraph)
 iterGraph cs = let
-	(yes,next) = stepGraph cs
-	in if yes then cs else iterGraph next
+	(dist,cs') = stepGraph cs
+	in if record < dist
+		then (dist,cs)
+		else iterGraph cs'
 -}
-
 output :: String -> IO ()
 output str = do
 	appendFile outputPath str
 	appendFile outputPath "\n"
 	putStrLn str
 
+findGraph :: MVar (Double, ColourGraph) -> IO ()
+findGraph result = do
+	initG <- initialGraph
+	let (g,(dist,_)) = appEndo (stimes maxIter (Endo $ \x@(g,(dist,g')) ->
+		if record < dist
+			then x
+			else (g', stepGraph g')
+		)) ((id &&& stepGraph) initG)
+	if record < dist
+		then putMVar result (dist, g)
+		else findGraph result
+
 main :: IO ()
 main = do
-	initialGraphs <- sequenceA (replicate threads initialGraph)
-	let colourss = parMap rpar (second fst . appEndo (stimes maxIter (Endo (
-			\x@(_,(dist,g)) -> if record < dist then x else (g, stepGraph g)
-			))) . (id &&& stepGraph)) initialGraphs
-	let colourss' = filter ((record <=) . snd) colourss
-	case colourss' of
-		[] -> main
-		_  -> let
-			(g,dist) = maximumBy (comparing snd) colourss'
-			in do
-				writeFile outputPath ""
-				for_ (Graph.labNodes g) (output . Colour.sRGB24show . snd)
-				output $ "Minimal distance: " ++ show dist
+	result <- newEmptyMVar
+	sequenceA_ (replicate threads (forkIO (findGraph result)))
+	(dist, g) <- readMVar result
+	writeFile outputPath ""
+	for_ (Graph.labNodes g) (output . Colour.sRGB24show . snd)
+	output $ "Minimal distance: " ++ show dist
