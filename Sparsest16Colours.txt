@@ -1,0 +1,17 @@
+#000000
+#ff0000
+#006900
+#a17b00
+#570088
+#f816ab
+#23a8f3
+#ffc5ff
+#8c2a4c
+#dc6100
+#00ff00
+#ffff00
+#0000ff
+#ff00ff
+#00ffff
+#ebffe2
+Minimal distance: 70.32900051281972
