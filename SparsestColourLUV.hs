@@ -152,10 +152,10 @@ maxIter :: Int
 maxIter = 10000
 
 record :: Double
-record = 70.60164047550118
+record = 70.62355789545234
 
 threads :: Int
-threads = 4
+threads = 7
 
 outputPath :: FilePath
 outputPath = "./Sparsest16Colours.txt"
