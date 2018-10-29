@@ -21,9 +21,9 @@ In this file, you have some configurable options:
 
 `step`: The amount of making the colours farther in Step 2.
 
-`maxIter`: max iteration for Step 3.
+`maxIter`: Max iteration for Step 3.
 
-`record`: the minimal distance given by the previous record. **So check the previous record and change this.**
+`record`: The minimal distance given by the previous record. **So check the previous record and change this.**
 
 `threads`: # of the threads for parallel computing. This makes execution of the same procedure in parallel, and will output only the best result.
 
@@ -37,6 +37,12 @@ Brief explanation of SparsestColourLUV_Discrete.hs:
     4. Outputs the result colours in hexadecimal form.
     5. Outputs the square of minimal distance of colours (a.k.a. SMD) after the last iteration of Step 3.
     6. Also outputs the sum of square of distances of colours from average colour (a.k.a. SSDA).
+
+In this file, the configurable options are:
+
+`coloursN`: The number of desired colours.
+
+`maxIter`: Max iteration for Step 3.
 
 Due to different syntax of outputs of both versions, if you used the old version and want to use its result to the new version, the syntax of the record must be adjusted. Namely, the "Minimal Distance: " must be erased, the MD itselt must be squared, and dummy SSDA must be inserted as 0. (This issue is to be fixed later.)
 
