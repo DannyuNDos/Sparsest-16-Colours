@@ -27,7 +27,7 @@ In this file, you have some configurable options:
 
 `threads`: # of the threads for parallel computing. This makes execution of the same procedure in parallel, and will output only the best result.
 
-`outputPath`: Path for outputting the result to. This is `"./Sparsest16Colours.txt"` by default.
+`outputPath`: Path for outputting the result. This is `"./Sparsest16Colours.txt"` by default.
 
 Brief explanation of SparsestColourLUV_Discrete.hs:
 
@@ -43,6 +43,8 @@ In this file, the configurable options are:
 `coloursN`: The number of desired colours.
 
 `maxIter`: Max iteration for Step 3.
+
+`outputPath`: Path for outputting the result. This is `"./Sparsest" ++ show coloursN ++ "Colours.txt"` by default.
 
 Due to different syntax of outputs of both versions, if you used the old version and want to use its result to the new version, the syntax of the record must be adjusted. Namely, the "Minimal Distance: " must be erased, the MD itselt must be squared, and dummy SSDA must be inserted as 0. (This issue is to be fixed later.)
 
