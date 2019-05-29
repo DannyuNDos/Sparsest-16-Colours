@@ -1,5 +1,5 @@
-# Sparsest-16-Colours
-Project to find the sparsest 16 Colours in CIELUV color space.
+# Most-Distinguishable-16-Colours
+Project to find the most distinguishable 16 Colours in CIELUV color space.
 
 Current version assumes sRGB. The project consists of:
 
