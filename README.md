@@ -4,7 +4,7 @@ Project to find the most distinguishable 16 Colours in CIELUV color space.
 Current version assumes sRGB. The project consists of:
 
     1. SparsestColourLUV.hs, old version of finder, written in Haskell. This is to be used for finding colours in vague sense.
-    2. SparsestColourLUV_Discrete.hs, new version of finder as of 2018.10.29, also written in Haskell. This is to be used to refine results from 1, though it can be used standalone.
+    2. SparsestColourLUV_Discrete.hs, new version of finder as of 2018.10.29, also written in Haskell. This is used to refine results from 1, though it can be used standalone. Current version is as of 2020.11.24.
     3. Some records.
 
 You need the following Haskell packages: `fgl`, `colour`, and `random`.
@@ -35,8 +35,7 @@ Brief explanation of SparsestColourLUV_Discrete.hs:
     2. Select a random colour amongst them, then moves it to most appropriate adjacent colour.
     3. Repeats Step 2 for certain amount, or until the current record is broken.
     4. Outputs the result colours in hexadecimal form.
-    5. Outputs the square of minimal distance of colours (a.k.a. SMD) after the last iteration of Step 3.
-    6. Also outputs the sum of square of distances of colours from average colour (a.k.a. SSDA).
+    5. Outputs the square of 15 minimal distances of colours (a.k.a. SMD) after the last iteration of Step 3.
 
 In this file, the configurable options are:
 
@@ -46,9 +45,9 @@ In this file, the configurable options are:
 
 `outputPath`: Path for outputting the result. This is `"./Sparsest" ++ show coloursN ++ "Colours.txt"` by default.
 
-Due to different syntax of outputs of both versions, if you used the old version and want to use its result to the new version, the syntax of the record must be adjusted. Namely, the "Minimal Distance: " must be erased, the MD itselt must be squared, and dummy SSDA must be inserted as 0. (This issue is to be fixed later.)
+Due to different syntax of outputs of both versions, if you used the old version and want to use its result to the new version, the syntax of the record must be adjusted. Namely, the "Minimal Distance: " must be erased, the MD itself must be squared, and 14 dummy MDs must be inserted as 0.
 
-All records must have file name in the following scheme: `Sparsest16Colours_yyyymmdd.txt`.
+All records must have file name in the following scheme: `SparsestNColours_yyyymmdd.txt`.
 
 This project was originally started for NetHack (a game). So if you are finding for 16 colours, when you find a new record and commit it here, please order the colours to vaguely fit the following order:
 
