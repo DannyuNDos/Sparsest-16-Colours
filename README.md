@@ -45,7 +45,7 @@ In this file, the configurable options are:
 
 `outputPath`: Path for outputting the result. This is `"./Sparsest" ++ show coloursN ++ "Colours.txt"` by default.
 
-Due to different syntax of outputs of both versions, if you used the old version and want to use its result to the new version, the syntax of the record must be adjusted. Namely, the "Minimal Distance: " must be erased, the MD itself must be squared, and 14 dummy MDs must be inserted as 0.
+Due to different syntax of outputs of both versions, if you used the old version and want to use its result to the new version, the syntax of the record must be adjusted. Namely, the "Minimal Distance: " must be erased, the MD itself must be squared, and 14 dummy SMDs must be inserted as 0.
 
 All records must have file name in the following scheme: `SparsestNColours_yyyymmdd.txt`.
 
